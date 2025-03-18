@@ -1,6 +1,6 @@
 # 📦 Projeto Gerenciamento de estoque
 
-Atividade em Sala de Aula: Criaçã ode uma interface de gerenciamento de estoque
+Atividade em Sala de Aula: Criação de uma interface de gerenciamento de estoque
 
 ## 📌 Descrição
 Este projeto tem como o objetivo gerenciar (CRUD) um estoque com segurança de login e senha. O programa utiliza variaveis internas para realizar login e o CRUD
