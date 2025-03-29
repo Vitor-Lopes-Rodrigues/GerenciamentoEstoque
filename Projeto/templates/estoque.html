@@ -7,55 +7,76 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Gerenciamento de Estoque 📦</h1>
-        <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+<div class="container">
+    <h1>Gerenciamento de Estoque 📦</h1>
+    <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
 
-        <form method="POST" class="form-estoque">
-            <div class="form-group">
-                <label for="codigo">Código:</label>
-                <input type="text" id="codigo" name="codigo" required>
-            </div>
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome">
-            </div>
-            <div class="form-group">
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" min="0">
-            </div>
-            <div class="buttons">
-                <button type="submit" name="acao" value="cadastrar">Cadastrar Produto</button>
-                <button type="submit" name="acao" value="entrada">Registrar Entrada</button>
-                <button type="submit" name="acao" value="saida">Registrar Saída</button>
-            </div>
-        </form>
-
-        {% if mensagem %}
-            <p class="mensagem {{ 'error' if 'Erro' in mensagem else 'success' }}">{{ mensagem }}</p>
-        {% endif %}
-
-        <h2>Estoque Atual</h2>
-        <div class="estoque-lista">
-            {% if estoque %}
-                <table>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nome</th>
-                        <th>Quantidade</th>
-                    </tr>
-                    {% for codigo, info in estoque.items() %}
-                        <tr>
-                            <td>{{ codigo }}</td>
-                            <td>{{ info.nome }}</td>
-                            <td>{{ info.quantidade }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <p>Estoque vazio!</p>
-            {% endif %}
+    <form method="POST" class="form-estoque">
+        <div class="loader" id="loader" style="display: none;">
+            <div class="spinner"></div>
+            <p>Processando...</p>
         </div>
+        <div class="form-group">
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" name="codigo" required>
+        </div>
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome">
+        </div>
+        <div class="form-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" min="0">
+        </div>
+        <div class="buttons">
+            <button type="submit" name="acao" value="cadastrar">Cadastrar Produto</button>
+            <button type="submit" name="acao" value="entrada">Registrar Entrada</button>
+            <button type="submit" name="acao" value="saida">Registrar Saída</button>
+        </div>
+    </form>
+
+    {% if mensagem %}
+    <p class="mensagem {{ 'error' if 'Erro' in mensagem else 'success' }}" id="mensagem">{{ mensagem }}</p>
+    {% endif %}
+
+    <h2>Estoque Atual</h2>
+    <div class="estoque-lista">
+        {% if estoque %}
+        <table>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Quantidade</th>
+            </tr>
+            {% for codigo, info in estoque.items() %}
+            <tr>
+                <td>{{ codigo }}</td>
+                <td>{{ info.nome }}</td>
+                <td>{{ info.quantidade }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>Estoque vazio!</p>
+        {% endif %}
     </div>
+</div>
+
+
+<!--Na minha opnião acredito que aqui poderiamos fazer em um arquivo separado e só depois chamara função javaScript. Mas não modelamos isso-->
+<script>
+    document.querySelector('.form-estoque').addEventListener('submit', function () {
+        document.getElementById('loader').style.display = 'block';
+    });
+    // Fazer a mensagem desaparecer após 3 segundos
+    if (document.getElementById('mensagem')) {
+        setTimeout(function () {
+            let mensagem = document.getElementById('mensagem');
+            mensagem.style.transition = 'opacity 0.5s ease-out';
+            mensagem.style.opacity = '0';
+            setTimeout(() => mensagem.remove(), 500);
+        }, 5000); //O tempo de 3 segundos aqui embaixo
+    }
+</script>
 </body>
 </html>
