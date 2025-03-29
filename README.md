@@ -27,6 +27,6 @@ Este projeto tem como o objetivo gerenciar (CRUD) um estoque com segurança de l
 - **Giovanne Curtolo Stancial** - 823111987
 - **Daniel Barbosa de Freitas** - 823221450
 - **Marcelo Buchalowicz** - 822161404
-
+- **Filipi Cavalcante da Silva** -  823125005
 📌 _Projeto desenvolvido para fins acadêmicos._
 
